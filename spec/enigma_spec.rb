@@ -36,6 +36,16 @@ RSpec.describe Enigma do
                  }
       expect(enigma.encrypt("hello world", "02715")).to eq(expected)
     end
+
+    it 'can encrypt with no key and no date given' do
+      expected = {
+                  encryption: "imquphaxsti",
+                  key: false,
+                  date: false
+                 }
+      Enigma.any_instance.stub(:keys_encrypt_decrypt).and_return([1,2,3,4])
+      expect(enigma.encrypt("hello world")).to eq(expected)
+    end
   end
 
   context 'can decrypt a message' do
