@@ -9,6 +9,7 @@ class Enigma
   end
 
   def encrypt(message, key = false, date = false)
+    message = message.downcase
     keys_encrypt_decrypt(key)
     date_encrypt(date)
     shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))
@@ -77,7 +78,8 @@ class Enigma
     square
   end
 #####################################################
-  def decrypt(encrypted_message, key, date)
+  def decrypt(encrypted_message, key, date = false)
+    encrypted_message = encrypted_message.downcase
     keys_encrypt_decrypt(key)
     date_encrypt(date)
     shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))

@@ -59,5 +59,14 @@ RSpec.describe Enigma do
                    }
       expect(enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
     end
+
+    it 'can decrypt a message with no date use today date instead' do
+      expected = {
+                  decryption: "hello world",
+                  key: "02715",
+                  date: false
+                 }
+      expect(enigma.decrypt("jkdeqfohtrw", "02715")).to eq(expected)
+    end
   end
 end
