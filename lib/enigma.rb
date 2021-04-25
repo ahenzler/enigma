@@ -1,20 +1,17 @@
 class Enigma
-  attr_reader :encrypt_keys,
-              :decrypt_keys
 
-  def initialize
-    @encrypt_keys = []
-    @decrypt_keys = []
+  def inizialize
+    @today = ''
   end
 
   def alphabet
     characters = ("a".."z").to_a << " "
   end
 
-  def encrypt(message, key, date = false)
-    keys_encrypt(key)
+  def encrypt(message, key = false, date = false)
+    keys_encrypt_decrypt(key)
     date_encrypt(date)
-    shifted = keys_encrypt(key).zip(date_encrypt(date))
+    shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))
     combination = shifted.map do |shift|
       shift.sum
     end
@@ -33,13 +30,22 @@ class Enigma
     end
   end
 
-  def keys_encrypt(key)
-    key1 = key.chars
-    a1 = []
-    key1.each_cons(2) do |a|
-      a1 << a
+  def keys_encrypt_decrypt(key)
+    if key == false
+      @key = rand(-100000).to_s
+      key1 = @key.chars
+      a1 = []
+      key1.each_cons(2) do |a|
+        a1 << a
+      end
+    else
+      key1 = key.chars
+      a1 = []
+      key1.each_cons(2) do |a|
+        a1 << a
+      end
     end
-    @keys = a1.map do |index|
+    keys = a1.map do |index|
       index.join("").to_i
     end
   end
@@ -47,8 +53,8 @@ class Enigma
   def date_encrypt(date)
     if date == false
       date = Time.now.to_datetime
-      today = date.strftime("%d/%m/%Y")
-      square = today.to_i**2
+      @today = date.strftime("%d/%m/%Y")
+      square = @today.to_i**2
       square = square.to_s
       if square.size < 4
         square = square.rjust(4,"0")
@@ -72,9 +78,9 @@ class Enigma
   end
 #####################################################
   def decrypt(encrypted_message, key, date)
-    keys_encrypt(key)
+    keys_encrypt_decrypt(key)
     date_encrypt(date)
-    shifted = keys_encrypt(key).zip(date_encrypt(date))
+    shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))
     combination = shifted.map do |shift|
       shift.sum
     end
