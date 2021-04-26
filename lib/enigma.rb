@@ -1,8 +1,5 @@
 class Enigma
-
-  def inizialize
-    @today = ''
-  end
+#  where did i repeat, where did i use the same logic
 
   def alphabet
     characters = ("a".."z").to_a << " "
