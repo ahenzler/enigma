@@ -48,10 +48,10 @@ RSpec.describe Enigma do
     end
   end
 
-  context 'can decrypt a message' do
+  context 'has a way to decrypt a message' do
     enigma = Enigma.new
 
-    it 'has a decrypt method' do
+    it 'can a decrypt a message' do
       expected =   {
                     decryption: "hello world",
                     key: "02715",
