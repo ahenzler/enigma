@@ -30,7 +30,7 @@ RSpec.describe Enigma do
 
     it 'can encrypt with no date given' do
       expected = {
-                  encryption: "jkdeqfohtrw",
+                  encryption: "jkifqftitra",
                   key: "02715",
                   date: false
                  }
@@ -39,11 +39,12 @@ RSpec.describe Enigma do
 
     it 'can encrypt with no key and no date given' do
       expected = {
-                  encryption: "imquphaxsti",
+                  encryption: "jirtqdbwtpj",
                   key: false,
                   date: false
                  }
-      Enigma.any_instance.stub(:keys_encrypt_decrypt).and_return([1,2,3,4])
+      allow(enigma).to receive(:keys_encrypt_decrypt).and_return([1,2,3,4])
+      allow(enigma).to receive(:date_encrypt).and_return([1,2,3,4])
       expect(enigma.encrypt("hello world")).to eq(expected)
     end
   end
@@ -66,7 +67,7 @@ RSpec.describe Enigma do
                   key: "02715",
                   date: false
                  }
-      expect(enigma.decrypt("jkdeqfohtrw", "02715")).to eq(expected)
+      expect(enigma.decrypt("jkifqftitra", "02715")).to eq(expected)
     end
   end
 end
