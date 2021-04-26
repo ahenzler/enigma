@@ -16,4 +16,4 @@ writer.write(decrypted_messages[:encryption])
 
 writer.close
 
-puts "Created #{ARGV[0]} with #{decrypted_messages[:key]} key and #{decrypted_messages[:date]} date."
+puts "Created #{ARGV[1]} with #{decrypted_messages[:key]} key and #{decrypted_messages[:date]} date."
