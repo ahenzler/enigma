@@ -33,8 +33,8 @@ class Enigma
 
   def keys_encrypt_decrypt(key)
     if key == false
-      @key = rand(-100000).to_s
-      key1 = @key.chars
+      key = rand(-100000).to_s
+      key1 = key.chars
       a1 = []
       key1.each_cons(2) do |a|
         a1 << a
@@ -54,8 +54,8 @@ class Enigma
   def date_encrypt(date)
     if date == false
       date = Time.now.to_datetime
-      @today = date.strftime("%d/%m/%Y")
-      square = @today.to_i**2
+      today = date.strftime("%d/%m/%Y")
+      square = today.to_i**2
       square = square.to_s
       if square.size < 4
         square = square.rjust(4,"0")
@@ -76,6 +76,7 @@ class Enigma
       end
     end
     square
+    # require 'pry'; binding.pry
   end
 #####################################################
   def decrypt(encrypted_message, key, date = false)
