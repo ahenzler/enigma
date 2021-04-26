@@ -76,10 +76,11 @@ class Enigma
       end
     end
     square
-    # require 'pry'; binding.pry
   end
-#####################################################
-  def decrypt(encrypted_message, key, date = false)
+
+  #####################################################
+
+def decrypt(encrypted_message, key, date = false)
     encrypted_message = encrypted_message.downcase
     keys_encrypt_decrypt(key)
     date_encrypt(date)
