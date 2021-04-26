@@ -1,4 +1,5 @@
 require './lib/enigma'
+
 enigma = Enigma.new
 
 reader = File.open(ARGV[0], "r")
