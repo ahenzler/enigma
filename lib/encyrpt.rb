@@ -7,7 +7,7 @@ message = handle.read
 
 handle.close
 
-encrypted_messages = enigma.encrypt(message, "01234","081493")
+encrypted_messages = enigma.encrypt(message, "01234","140893")
 
 writer = File.open(ARGV[1], "w")
 
