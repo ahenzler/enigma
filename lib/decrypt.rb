@@ -12,7 +12,7 @@ decrypted_messages = enigma.decrypt(message, "01234","140893")
 
 writer = File.open(ARGV[1], "w")
 
-writer.write(decrypted_messages[:encryption])
+writer.write(decrypted_messages[:decryption])
 
 writer.close
 
