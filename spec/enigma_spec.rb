@@ -1,5 +1,7 @@
 require 'date'
 require 'time'
+require './lib/encryption'
+require './lib/decryption'
 require './lib/enigma'
 
 RSpec.describe Enigma do
@@ -9,65 +11,13 @@ RSpec.describe Enigma do
     it 'is a enigma' do
       expect(enigma).to be_instance_of(Enigma)
     end
-  end
 
-  context 'can encrypt a message' do
-    enigma = Enigma.new
-
-    it 'has characters' do
-      expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-      expect(enigma.alphabet).to eq(expected)
-    end
-
-    it 'has a encrypt method' do
-      expected = {
-                  encryption: "keder ohulw",
-                  key: "02715",
-                  date: "040895"
-                 }
-      expect(enigma.encrypt("hello world", "02715", "040895")).to eq(expected)
-    end
-
-    it 'can encrypt with no date given' do
-      expected = {
-                  encryption: "jkifqftitra",
-                  key: "02715",
-                  date: false
-                 }
-      expect(enigma.encrypt("hello world", "02715")).to eq(expected)
-    end
-
-    it 'can encrypt with no key and no date given' do
-      expected = {
-                  encryption: "jirtqdbwtpj",
-                  key: false,
-                  date: false
-                 }
-      allow(enigma).to receive(:keys_encrypt_decrypt).and_return([1,2,3,4])
-      allow(enigma).to receive(:date_encrypt).and_return([1,2,3,4])
-      expect(enigma.encrypt("hello world")).to eq(expected)
+    it 'has attributes' do
+      expected1 = {:date=>"260421", :encryption=>"eccktep", :key=>"12345"}
+      expected2 = {:date=>"260421", :decryption=>"message", :key=>"12345"}
+      expect(enigma.encrypt("message","12345", "260421")).to eq(expected1)
+      expect(enigma.decrypt("eccktep","12345", "260421")).to eq(expected2)
     end
   end
 
-  context 'has a way to decrypt a message' do
-    enigma = Enigma.new
-
-    it 'can a decrypt a message' do
-      expected =   {
-                    decryption: "hello world",
-                    key: "02715",
-                    date: "040895"
-                   }
-      expect(enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected)
-    end
-
-    it 'can decrypt a message with no date use today date instead' do
-      expected = {
-                  decryption: "hello world",
-                  key: "02715",
-                  date: false
-                 }
-      expect(enigma.decrypt("jkifqftitra", "02715")).to eq(expected)
-    end
-  end
 end
