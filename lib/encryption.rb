@@ -5,7 +5,7 @@ class Encryption
   end
 
   def shifted(key, date)
-    shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))
+    shifted = keys_encrypt(key).zip(date_encrypt(date))
     combination = shifted.map do |shift|
       shift.sum
     end
@@ -17,16 +17,16 @@ class Encryption
 
   def encrypt(message, key, date)
     message = message.downcase
-    keys_encrypt_decrypt(key)
+    keys_encrypt(key)
     date_encrypt(date)
     shift = shifted(key, date)
     m_num = message_num(message)
     crypt = m_num.zip(shift.cycle).map(&:sum)
-    encrypt = crypt.map do |char|
+    encrypted = crypt.map do |char|
       alphabet[char%27]
     end
-    hash_encryption = encrypt.join("")
-    h = {encryption: hash_encryption, key: key, date: date}
+    hash_encryption = encrypted.join("")
+    encryption = {encryption: hash_encryption, key: key, date: date}
   end
 
   def message_to_num(message)
@@ -35,7 +35,7 @@ class Encryption
     end
   end
 
-  def keys_encrypt_decrypt(key)
+  def keys_encrypt(key)
     if key == false
       key = rand(-100000).to_s
       new_key_array = key.chars
