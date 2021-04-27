@@ -8,7 +8,7 @@ message = reader.read
 
 reader.close
 
-decrypted_messages = enigma.decrypt(message, "01234","140893")
+decrypted_messages = enigma.decrypt(message, ARGV[2], ARGV[3])
 
 writer = File.open(ARGV[1], "w")
 

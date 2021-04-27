@@ -39,7 +39,7 @@ RSpec.describe Encryption do
                   key: "02715",
                   date: false
                  }
-      expect(encryption.encrypt("hello world", "02715")).to eq(expected)
+      expect(encryption.encrypt("hello world", "02715", false)).to eq(expected)
     end
 
     it 'can encrypt with no key and no date given' do
@@ -50,7 +50,7 @@ RSpec.describe Encryption do
                  }
       allow(encryption).to receive(:keys_encrypt_decrypt).and_return([1,2,3,4])
       allow(encryption).to receive(:date_encrypt).and_return([1,2,3,4])
-      expect(encryption.encrypt("hello world")).to eq(expected)
+      expect(encryption.encrypt("hello world", false, false)).to eq(expected)
     end
   end
 end

@@ -1,9 +1,10 @@
 class Encryption
+
   def alphabet
     characters = ("a".."z").to_a << " "
   end
 
-  def encrypt(message, key = false, date = false)
+  def encrypt(message, key, date)
     message = message.downcase
     keys_encrypt_decrypt(key)
     date_encrypt(date)
@@ -72,5 +73,4 @@ class Encryption
     end
     square
   end
-
 end
