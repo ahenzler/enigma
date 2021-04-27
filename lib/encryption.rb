@@ -4,21 +4,29 @@ class Encryption
     characters = ("a".."z").to_a << " "
   end
 
-  def encrypt(message, key, date)
-    message = message.downcase
-    keys_encrypt_decrypt(key)
-    date_encrypt(date)
-    shifted = keys_encrypt_decrypt(key).zip(date_encrypt(date))
+  def shifted(key, date)
+    shifted = keys_encrypt(key).zip(date_encrypt(date))
     combination = shifted.map do |shift|
       shift.sum
     end
-    m_num = message_to_num(message)
-    crypt = m_num.zip(combination.cycle).map(&:sum)
-    encrypt = crypt.map do |char|
+  end
+
+  def message_num(message)
+    message_to_num(message)
+  end
+
+  def encrypt(message, key, date)
+    message = message.downcase
+    keys_encrypt(key)
+    date_encrypt(date)
+    shift = shifted(key, date)
+    m_num = message_num(message)
+    crypt = m_num.zip(shift.cycle).map(&:sum)
+    encrypted = crypt.map do |char|
       alphabet[char%27]
     end
-    hash_encryption = encrypt.join("")
-    h = {encryption: hash_encryption, key: key, date: date}
+    hash_encryption = encrypted.join("")
+    encryption = {encryption: hash_encryption, key: key, date: date}
   end
 
   def message_to_num(message)
@@ -27,50 +35,58 @@ class Encryption
     end
   end
 
-  def keys_encrypt_decrypt(key)
+  def keys_encrypt(key)
     if key == false
       key = rand(-100000).to_s
-      key1 = key.chars
-      a1 = []
-      key1.each_cons(2) do |a|
-        a1 << a
+      new_key_array = key.chars
+      new_key = []
+      new_key_array.each_cons(2) do |a|
+        new_key << a
       end
     else
-      key1 = key.chars
-      a1 = []
-      key1.each_cons(2) do |a|
-        a1 << a
+      new_key_array = key.chars
+      new_key = []
+      new_key_array.each_cons(2) do |a|
+        new_key << a
       end
     end
-    keys = a1.map do |index|
+    keys = new_key.map do |index|
       index.join("").to_i
+    end
+  end
+
+  def square_false_date(date)
+    date = Time.now.to_datetime
+    today = date.strftime("%d/%m/%Y")
+    square = today.to_i**2
+    square = square.to_s
+    if square.size < 4
+      square = square.rjust(4,"0")
+    end
+    square_string = square.chars.last(4)
+    squared_nums = square_string.map do |integer|
+      integer.to_i
+    end
+  end
+
+  def square_date(date)
+    square = date.to_i**2
+    square = square.to_s
+    if square.size < 4
+      square = square.rjust(4,0)
+    end
+    square_string = square.chars.last(4)
+    squared_nums = square_string.map do |integer|
+      integer.to_i
     end
   end
 
   def date_encrypt(date)
     if date == false
-      date = Time.now.to_datetime
-      today = date.strftime("%d/%m/%Y")
-      square = today.to_i**2
-      square = square.to_s
-      if square.size < 4
-        square = square.rjust(4,"0")
-      end
-      square_string = square.chars.last(4)
-      square = square_string.map do |integer|
-        integer.to_i
-      end
+      squared_nums = square_false_date(date)
     else
-      square = date.to_i**2
-      square = square.to_s
-      if square.size < 4
-        square = square.rjust(4,0)
-      end
-      square_string = square.chars.last(4)
-      square = square_string.map do |integer|
-        integer.to_i
-      end
+      squared_nums = square_date(date)
     end
-    square
+     squared_nums
   end
 end

@@ -35,7 +35,7 @@ RSpec.describe Encryption do
 
     it 'can encrypt with no date given' do
       expected = {
-                  encryption: "jkifqftitra",
+                  encryption: "jldiqgoltsw",
                   key: "02715",
                   date: false
                  }
@@ -48,7 +48,7 @@ RSpec.describe Encryption do
                   key: false,
                   date: false
                  }
-      allow(encryption).to receive(:keys_encrypt_decrypt).and_return([1,2,3,4])
+      allow(encryption).to receive(:keys_encrypt).and_return([1,2,3,4])
       allow(encryption).to receive(:date_encrypt).and_return([1,2,3,4])
       expect(encryption.encrypt("hello world", false, false)).to eq(expected)
     end
