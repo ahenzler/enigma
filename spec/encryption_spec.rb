@@ -35,7 +35,7 @@ RSpec.describe Encryption do
 
     it 'can encrypt with no date given' do
       expected = {
-                  encryption: "jkifqftitra",
+                  encryption: "jldiqgoltsw",
                   key: "02715",
                   date: false
                  }

@@ -34,7 +34,7 @@ RSpec.describe Decryption do
                   key: "02715",
                   date: false
                  }
-      expect(decryption.decrypt("jkifqftitra", "02715")).to eq(expected)
+      expect(decryption.decrypt("jldiqgoltsw", "02715")).to eq(expected)
     end
   end
 end
